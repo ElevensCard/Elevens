@@ -37,6 +37,7 @@ public class Deck {
               cards.add(new Card(ranks[r], suits[s], values[r]));
           }
         }
+        ListIterator<Card> cardTracker = cards.listIterator(r*s);
     }
 
 
@@ -70,7 +71,11 @@ public class Deck {
      *         previously dealt.
      */
     public Card deal() {
-        /* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
+        if(cardTracker.hasNext){
+            return cardTracker.next();
+        } else {
+            return null;
+        }
     }
 
     /**
