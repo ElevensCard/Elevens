@@ -1,5 +1,7 @@
 package Activity03;
 
+import java.util.Random;
+
 /**
  * This class provides a convenient way to test shuffling methods.
  */
@@ -22,11 +24,11 @@ public class Shuffler {
      */
     public static void main(String[] args) {
         System.out.println("Results of " + SHUFFLE_COUNT +
-                                 " consecutive perfect shuffles:");
+            " consecutive perfect shuffles:");
         int[] values1 = new int[VALUE_COUNT];
         for (int i = 0; i < values1.length; i++) {
             values1[i] = i;
-            }
+        }
         for (int j = 1; j <= SHUFFLE_COUNT; j++) {
             perfectShuffle(values1);
             System.out.print("  " + j + ":");
@@ -38,11 +40,11 @@ public class Shuffler {
         System.out.println();
 
         System.out.println("Results of " + SHUFFLE_COUNT +
-                                 " consecutive efficient selection shuffles:");
+            " consecutive efficient selection shuffles:");
         int[] values2 = new int[VALUE_COUNT];
         for (int i = 0; i < values2.length; i++) {
             values2[i] = i;
-            }
+        }
         for (int j = 1; j <= SHUFFLE_COUNT; j++) {
             selectionShuffle(values2);
             System.out.print("  " + j + ":");
@@ -53,7 +55,6 @@ public class Shuffler {
         }
         System.out.println();
     }
-
 
     /**
      * Apply a "perfect shuffle" to the argument.
@@ -90,5 +91,13 @@ public class Shuffler {
      * @param values is an array of integers simulating cards to be shuffled.
      */
     public static void selectionShuffle(int[] values) {
-	}
+        Random cardFinder = new Random();
+        int arraySize = values.length;
+        for(int swap = arraySize; swap > 0; swap--) {
+            int where = cardFinder.nextInt(swap);
+            int tempFrom = values[swap];
+            values[swap] = values[where];
+            values[where] = tempFrom;
+        }
+    }
 }
