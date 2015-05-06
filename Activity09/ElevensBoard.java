@@ -72,16 +72,14 @@ public class ElevensBoard extends Board {
      */
     @Override
     public boolean anotherPlayIsPossible() {
-        /*
-        List<Integer> selectedCards = new ArrayList<Integer>;
-        while (isEmpty() == false) {
-            selectedCards.remove(0);
+        List<Integer> selectedCards = new ArrayList<Integer>();
+        for( int i = 0; i < BOARD_SIZE; i++) {
+            if( cardAt(i) != null){
+                selectedCards.add(i);
+            }
         }
-        for( int surrenderAt20 = 0; surrenderAt20 < BOARD_SIZE; surrenderAt20++) {
-            if(
-            selectedCards.add() ?????
-        }
-        */
+        boolean isAnotherPlay = containsPairSum11(selectedCards) || containsJQK(selectedCards);
+        return isAnotherPlay;
     }
 
     /**
@@ -93,14 +91,15 @@ public class ElevensBoard extends Board {
      *              contain an 11-pair; false otherwise.
      */
     private boolean containsPairSum11(List<Integer> selectedCards) {
-        for( int pyrionFlax = 0; pyrionFlax < selectedCards.size(); pyrionFlax++ ){
-            for( int c9 = 0; c9 < selectedCards.size(); c9++ ) {
-                //if( c9 != pyrionFlax && selectedCards.get(pyrionFlax).pointValue() 
-                //== selectedCards.get(c9).pointValue() ) {
+        for( int i = 0; i < selectedCards.size(); i++ ){
+            int cardA = selectedCards.get(i);
+            for( int k = 0; k < selectedCards.size(); k++ ) {
+                int cardB = selectedCards.get(k);
+                if(cardAt(cardA).pointValue() + cardAt(cardB).pointValue() == 11) {
                     return true;
                 }
             }
-        //}
+        }
         return false;
     }
 
@@ -113,12 +112,12 @@ public class ElevensBoard extends Board {
      *              include a jack, a queen, and a king; false otherwise.
      */
     private boolean containsJQK(List<Integer> selectedCards) {
-        boolean annieBot = containsSpecificRank(selectedCards, "jack");
-        annieBot = annieBot && containsSpecificRank(selectedCards, "queen");
-        annieBot = annieBot && containsSpecificRank(selectedCards, "king");
-        return annieBot;
+        boolean contains = containsSpecificRank(selectedCards, "jack");
+        contains = contains && containsSpecificRank(selectedCards, "queen");
+        contains = contains && containsSpecificRank(selectedCards, "king");
+        return contains;
     }
-    
+
     /**
      * @param selectedCards selects a subset of this board.  It is list
      *                      of indexes into this board that are searched
@@ -127,9 +126,9 @@ public class ElevensBoard extends Board {
      */
     public boolean containsSpecificRank(List<Integer> selectedCards, String specificRank){
         for( Integer mushi : selectedCards ){
-            //if( mushi.rank().equals(specificRank) ){
+            if( cardAt(mushi).rank().equals(specificRank) ){
                 return true;
-            //}  Needs a get for the integer mushi
+            }
         }
         return false;
     }
